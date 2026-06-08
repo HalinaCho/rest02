@@ -9,14 +9,14 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
+  const [lightMode, setLightMode] = useState(() => {
+    return localStorage.getItem('theme') === 'light';
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-  }, [darkMode]);
+    document.documentElement.setAttribute('data-theme', lightMode ? 'light' : 'dark');
+    localStorage.setItem('theme', lightMode ? 'light' : 'dark');
+  }, [lightMode]);
 
   return (
     <HashRouter>
@@ -30,7 +30,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-      <ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode(d => !d)} />
+      <ThemeToggle lightMode={lightMode} onToggle={() => setLightMode(l => !l)} />
     </HashRouter>
   );
 }

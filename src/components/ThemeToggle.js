@@ -1,15 +1,15 @@
 import { FiSun, FiMoon } from 'react-icons/fi';
 import './ThemeToggle.css';
 
-function ThemeToggle({ darkMode, onToggle }) {
+function ThemeToggle({ lightMode, onToggle }) {
   return (
     <button
       className="theme-toggle"
       onClick={onToggle}
-      aria-label={darkMode ? '라이트 모드로 전환' : '다크 모드로 전환'}
-      title={darkMode ? '라이트 모드' : '다크 모드'}
+      aria-label={lightMode ? '다크 모드로 전환' : '라이트 모드로 전환'}
+      title={lightMode ? '다크 모드' : '라이트 모드'}
     >
-      {darkMode ? <FiSun /> : <FiMoon />}
+      {lightMode ? <FiMoon /> : <FiSun />}
     </button>
   );
 }
