@@ -62,7 +62,7 @@
   align-items: center;
   margin-top: 36px;
   padding: 24px;
-  background: var(--light-gray);
+  background: var(--bg-surface-alt);
   border-radius: var(--border-radius);
   border-left: 4px solid var(--teal);
 }
@@ -71,7 +71,7 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: #c8d8e8;
+  background: var(--color-placeholder-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,7 +93,7 @@
 .ceo-name {
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--dark-blue);
+  color: var(--color-heading);
   margin-bottom: 6px;
 }
 
@@ -111,14 +111,14 @@
 
 .value-item {
   padding: 24px;
-  background: var(--light-gray);
+  background: var(--bg-surface-alt);
   border-radius: var(--border-radius);
   border-left: 4px solid var(--teal);
   transition: var(--transition);
 }
 
 .value-item:hover {
-  background: var(--cyan-light);
+  background: var(--bg-surface-teal);
 }
 
 .value-num {
@@ -134,7 +134,7 @@
 .value-item h3 {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--dark-blue);
+  color: var(--color-heading);
   margin-bottom: 6px;
 }
 

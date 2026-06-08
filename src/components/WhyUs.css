@@ -1,5 +1,5 @@
 .why-us {
-  background: var(--white);
+  background: var(--bg-surface);
 }
 
 .why-inner {
@@ -23,14 +23,14 @@
   display: flex;
   gap: 16px;
   padding: 24px;
-  background: var(--light-gray);
+  background: var(--bg-surface-alt);
   border-radius: var(--border-radius);
   transition: var(--transition);
   border: 1px solid transparent;
 }
 
 .why-card:hover {
-  background: var(--cyan-light);
+  background: var(--bg-surface-teal);
   border-color: rgba(8, 145, 178, 0.2);
 }
 
@@ -50,7 +50,7 @@
 .why-card h3 {
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--dark-blue);
+  color: var(--color-heading);
   margin-bottom: 6px;
 }
 
