@@ -66,44 +66,61 @@ function Hero() {
             </div>
           </div>
 
-          {/* 오른쪽: 환자 ↔ 닥브매 ↔ 병원 비주얼 */}
+          {/* 오른쪽: 수직 연결 비주얼 */}
           <div className="hero-right">
             <div className="hv-visual">
 
-              {/* 연결선 */}
-              <div className="hv-line hv-line-l" />
-              <div className="hv-line hv-line-r" />
-
-              {/* 이동 점 */}
-              <div className="hv-dot hv-dot-l1" />
-              <div className="hv-dot hv-dot-l2" />
-              <div className="hv-dot hv-dot-r1" />
-              <div className="hv-dot hv-dot-r2" />
-
-              {/* 환자 노드 */}
-              <div className="hv-node hv-node-patient">
-                <div className="hv-node-circle">
-                  <FiUser />
+              {/* 환자 */}
+              <div className="hv-row">
+                <div className="hv-cell">
+                  <div className="hv-node-circle">
+                    <FiUser />
+                  </div>
                 </div>
-                <span className="hv-node-name">환자</span>
-                <span className="hv-node-desc">신규 유입</span>
+                <div className="hv-row-text">
+                  <strong>환자</strong>
+                  <span>온라인으로 병원을 검색</span>
+                </div>
+              </div>
+
+              {/* 상단 연결선 */}
+              <div className="hv-connector">
+                <div className="hv-vdot" style={{ animationDelay: '0s' }} />
+                <div className="hv-vdot" style={{ animationDelay: '1s' }} />
               </div>
 
               {/* 닥브매 오브 */}
-              <div className="hv-orb">
-                <span className="hv-orb-abbr">닥브매</span>
-                <span className="hv-orb-sub">온라인 마케팅</span>
-              </div>
-
-              {/* 병원 노드 */}
-              <div className="hv-node hv-node-hospital">
-                <div className="hv-node-circle hv-node-circle-hosp">
-                  <FiActivity />
+              <div className="hv-row">
+                <div className="hv-cell">
+                  <div className="hv-orb">
+                    <span className="hv-orb-abbr">닥브매</span>
+                    <span className="hv-orb-sub">온라인 마케팅</span>
+                  </div>
                 </div>
-                <span className="hv-node-name">병원</span>
-                <span className="hv-node-desc">브랜드 성장</span>
+                <div className="hv-row-text">
+                  <strong>닥브매 채널 운영</strong>
+                  <span>블로그 · 플레이스<br />카페 · 인스타그램</span>
+                </div>
               </div>
 
+              {/* 하단 연결선 */}
+              <div className="hv-connector">
+                <div className="hv-vdot" style={{ animationDelay: '0.5s' }} />
+                <div className="hv-vdot" style={{ animationDelay: '1.5s' }} />
+              </div>
+
+              {/* 병원 */}
+              <div className="hv-row">
+                <div className="hv-cell">
+                  <div className="hv-node-circle hv-node-circle-hosp">
+                    <FiActivity />
+                  </div>
+                </div>
+                <div className="hv-row-text">
+                  <strong>병원</strong>
+                  <span>신뢰 브랜드 & 환자 증가</span>
+                </div>
+              </div>
 
             </div>
           </div>
