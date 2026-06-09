@@ -4,7 +4,6 @@ import { FiArrowRight, FiCheckCircle, FiUser, FiActivity } from 'react-icons/fi'
 import './Hero.css';
 
 const tags = ['네이버 블로그', '네이버 플레이스', '인스타그램', '네이버 카페'];
-const channels = ['블로그', '플레이스', '카페', '인스타그램'];
 
 function Hero() {
   const [expanded, setExpanded] = useState(false);
@@ -105,12 +104,6 @@ function Hero() {
                 <span className="hv-node-desc">브랜드 성장</span>
               </div>
 
-              {/* 채널 태그 */}
-              <div className="hv-channel-row">
-                {channels.map((ch) => (
-                  <span key={ch} className="hv-channel-tag">{ch}</span>
-                ))}
-              </div>
 
             </div>
           </div>
