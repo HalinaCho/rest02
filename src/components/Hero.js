@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiCheckCircle, FiEdit3, FiMapPin, FiUsers, FiInstagram } from 'react-icons/fi';
+import { FiArrowRight, FiCheckCircle, FiTrendingUp, FiEdit3, FiShield, FiBarChart2 } from 'react-icons/fi';
 import './Hero.css';
 
 const tags = ['네이버 블로그', '네이버 플레이스', '인스타그램', '네이버 카페'];
 
-const channels = [
-  { icon: <FiEdit3 />, name: '네이버 블로그', desc: 'SEO 최적화 포스팅' },
-  { icon: <FiMapPin />, name: '네이버 플레이스', desc: '지역 검색 상위 노출' },
-  { icon: <FiUsers />, name: '네이버 카페', desc: '지역 커뮤니티 마케팅' },
-  { icon: <FiInstagram />, name: '인스타그램', desc: '피드·릴스 콘텐츠' },
+const chips = [
+  { icon: <FiTrendingUp />, label: '검색 상위 노출', cls: 'hv-chip-1' },
+  { icon: <FiEdit3 />,      label: '콘텐츠 전략',   cls: 'hv-chip-2' },
+  { icon: <FiBarChart2 />,  label: '성과 분석',      cls: 'hv-chip-3' },
+  { icon: <FiShield />,     label: '법규 준수',      cls: 'hv-chip-4' },
 ];
 
 function Hero() {
@@ -73,28 +73,26 @@ function Hero() {
             </div>
           </div>
 
-          {/* 오른쪽: 채널 관리 카드 */}
+          {/* 오른쪽: 디자인 비주얼 */}
           <div className="hero-right">
-            <div className="hv-card">
-              <div className="hv-card-header">
-                <span className="hv-card-title">채널 통합 관리</span>
-                <span className="hv-live-badge">● 운영중</span>
+            <div className="hv-visual">
+              {/* 장식 링 */}
+              <div className="hv-ring hv-ring-1" />
+              <div className="hv-ring hv-ring-2" />
+
+              {/* 중앙 오브 */}
+              <div className="hv-orb">
+                <span className="hv-orb-abbr">닥브매</span>
+                <span className="hv-orb-sub">Brand Manager</span>
               </div>
-              <div className="hv-channels">
-                {channels.map((ch) => (
-                  <div key={ch.name} className="hv-channel-item">
-                    <span className="hv-icon">{ch.icon}</span>
-                    <div className="hv-channel-info">
-                      <strong>{ch.name}</strong>
-                      <span>{ch.desc}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="hv-card-footer">
-                <span>매월 성과 리포트 제공</span>
-                <FiArrowRight className="hv-arrow" />
-              </div>
+
+              {/* 플로팅 칩 */}
+              {chips.map((c) => (
+                <div key={c.label} className={`hv-chip ${c.cls}`}>
+                  {c.icon}
+                  <span>{c.label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
