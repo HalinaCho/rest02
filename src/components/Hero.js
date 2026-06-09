@@ -20,7 +20,11 @@ function Hero() {
         </div>
 
         <h1 className="hero-title">
-          <span className="hero-fullname">닥터스 브랜드 매니저</span>
+          <span className="hero-fullname">
+            <span className="abbr-hl">닥</span>터스{' '}
+            <span className="abbr-hl">브</span>랜드{' '}
+            <span className="abbr-hl">매</span>니저
+          </span>
           <span className="hero-tagline">
             병원의 온라인 브랜드,<br />
             <span className="gradient-text">처음부터 끝까지 책임집니다</span>

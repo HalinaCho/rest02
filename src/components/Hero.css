@@ -92,6 +92,11 @@
   line-height: 1.1;
 }
 
+.abbr-hl {
+  color: var(--cyan);
+  text-shadow: 0 0 24px rgba(34, 211, 238, 0.45);
+}
+
 .hero-tagline {
   font-size: 1.55rem;
   font-weight: 600;
