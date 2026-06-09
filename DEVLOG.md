@@ -198,6 +198,109 @@ Hero → Services → WhyUs → Process → CtaBanner 섹션 조합
 
 ---
 
+---
+
+## 2026-06-09
+
+### 1단계 — 스크롤 애니메이션 시스템 구축
+
+**`src/hooks/useScrollAnimation.js` 신규 생성**
+- Intersection Observer API 기반 커스텀 훅
+- 요소가 뷰포트에 진입하는 순간 `.visible` 클래스 추가 후 Observer 해제
+- `threshold: 0.15` 기본값, 인자로 조정 가능
+
+**`src/index.css` 전역 애니메이션 클래스 추가**
+```css
+.reveal           /* 초기: opacity 0, translateY 32px */
+.reveal.visible   /* 진입 시: opacity 1, translate 0 */
+.reveal.from-left /* 왼쪽에서 슬라이드인 */
+.reveal.from-right
+.reveal.delay-1 ~ .reveal.delay-4  /* stagger 딜레이 */
+```
+- `prefers-reduced-motion` 미디어쿼리 대응 (접근성)
+
+**적용 범위**
+- `Services`, `WhyUs`, `Process`, `CtaBanner` 컴포넌트
+- `About`, `Contact`, `Services` 페이지
+- 각 카드/섹션별 delay-1~4로 순차 등장 처리
+
+---
+
+### 2단계 — Hero 섹션 UI/인터랙션 개선
+
+#### 2-1. 닥·브·매 하이라이트
+- "닥터스 브랜드 매니저" 제목에서 `닥`, `브`, `매` 글자를 `<span class="abbr-hl">` 처리
+- `color: var(--cyan)` + `text-shadow` 글로우 효과로 약칭 시각화
+
+#### 2-2. 타이틀 펼침 애니메이션 (JavaScript)
+- `useState(false)` → 600ms 후 `true` 전환 (`useEffect` + `setTimeout`)
+- 초기 렌더: **"닥브매"** 만 표시
+- 600ms 후: "터스&nbsp;", "랜드&nbsp;", "니저" 세 접미사가 0ms / 140ms / 280ms stagger로 펼쳐짐
+- 구현: `max-width: 0 → 400px` + `opacity: 0 → 1` CSS transition
+
+**트러블슈팅 — 수직 정렬 깨짐**
+- 원인: `overflow: hidden`이 적용된 `inline-block` 요소는 baseline을 텍스트 기준이 아닌 요소 하단으로 계산
+- 해결: `.abbr-hl`과 `.expand-text` 모두 `vertical-align: bottom` 통일
+
+#### 2-3. 2단 레이아웃 전환
+
+**너비 문제 수정**
+- `.hero-content`에 걸려있던 `max-width: 760px` 제거
+- 이로써 다른 섹션과 동일한 `max-width: 1200px` 컨테이너 사용
+
+**2단 그리드 적용**
+```css
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+```
+- 960px 이하: 1단 전환
+
+---
+
+### 3단계 — Hero 우측 비주얼 개발 (3차 리뉴얼)
+
+**1차 시도: 채널 관리 카드**
+- 4채널 리스트 카드 → "기능 소개 UI" 느낌, 에이전시 감성 부족
+
+**2차 시도: 오브·링·플로팅 칩**
+- 중앙 글로우 오브 + 2개 장식 링 + 4개 플로팅 서비스 칩
+- 닷 그리드 배경 패턴
+
+**3차 확정: 환자 ↔ 닥브매 ↔ 병원 연결 다이어그램**
+
+브랜드 핵심 메시지를 시각화: *환자와 병원을 잇는 닥브매*
+
+초기 수평 배치 → 좌측 텍스트 컬럼 대비 높이 부족 문제로 **수직 타임라인**으로 최종 전환
+
+```
+[👤 환자]   온라인으로 병원을 검색
+    │  (점 이동 ↓)
+[닥브매]    닥브매 채널 운영
+            블로그 · 플레이스 · 카페 · 인스타그램
+    │  (점 이동 ↓)
+[🏥 병원]   신뢰 브랜드 & 환자 증가
+```
+
+**구현 세부사항**
+- `.hv-cell { width: 130px }` 고정 셀로 원(72px)·오브(130px)·연결선 중심축 통일
+- `.hv-connector::before` — `repeating-linear-gradient(180deg)` 수직 점선
+- `.hv-vdot` — `top: 0% → 100%` keyframe으로 점 낙하 애니메이션, 2개씩 1s 간격 stagger
+- 환자 노드: teal 계열 glow / 병원 노드: blue 계열 glow / 오브: teal→blue 그라데이언트 + 박동 글로우
+
+---
+
+### 4단계 — 메타 태그 수정
+
+| 항목 | 변경 전 | 변경 후 |
+|---|---|---|
+| `og:title` | `닥브매\|닥터스 브랜드 매니저` | `닥브매 \| 병원 온라인 마케팅 전문 에이전시` |
+
+---
+
 ## 남은 작업 (TODO)
 
 - [ ] 패키지 가격 확정 후 Services 페이지 업데이트
