@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiCheckCircle, FiTrendingUp, FiEdit3, FiShield, FiBarChart2 } from 'react-icons/fi';
+import { FiArrowRight, FiCheckCircle, FiUser, FiActivity } from 'react-icons/fi';
 import './Hero.css';
 
 const tags = ['네이버 블로그', '네이버 플레이스', '인스타그램', '네이버 카페'];
-
-const chips = [
-  { icon: <FiTrendingUp />, label: '검색 상위 노출', cls: 'hv-chip-1' },
-  { icon: <FiEdit3 />,      label: '콘텐츠 전략',   cls: 'hv-chip-2' },
-  { icon: <FiBarChart2 />,  label: '성과 분석',      cls: 'hv-chip-3' },
-  { icon: <FiShield />,     label: '법규 준수',      cls: 'hv-chip-4' },
-];
+const channels = ['블로그', '플레이스', '카페', '인스타그램'];
 
 function Hero() {
   const [expanded, setExpanded] = useState(false);
@@ -73,26 +67,51 @@ function Hero() {
             </div>
           </div>
 
-          {/* 오른쪽: 디자인 비주얼 */}
+          {/* 오른쪽: 환자 ↔ 닥브매 ↔ 병원 비주얼 */}
           <div className="hero-right">
             <div className="hv-visual">
-              {/* 장식 링 */}
-              <div className="hv-ring hv-ring-1" />
-              <div className="hv-ring hv-ring-2" />
 
-              {/* 중앙 오브 */}
-              <div className="hv-orb">
-                <span className="hv-orb-abbr">닥브매</span>
-                <span className="hv-orb-sub">Brand Manager</span>
+              {/* 연결선 */}
+              <div className="hv-line hv-line-l" />
+              <div className="hv-line hv-line-r" />
+
+              {/* 이동 점 */}
+              <div className="hv-dot hv-dot-l1" />
+              <div className="hv-dot hv-dot-l2" />
+              <div className="hv-dot hv-dot-r1" />
+              <div className="hv-dot hv-dot-r2" />
+
+              {/* 환자 노드 */}
+              <div className="hv-node hv-node-patient">
+                <div className="hv-node-circle">
+                  <FiUser />
+                </div>
+                <span className="hv-node-name">환자</span>
+                <span className="hv-node-desc">신규 유입</span>
               </div>
 
-              {/* 플로팅 칩 */}
-              {chips.map((c) => (
-                <div key={c.label} className={`hv-chip ${c.cls}`}>
-                  {c.icon}
-                  <span>{c.label}</span>
+              {/* 닥브매 오브 */}
+              <div className="hv-orb">
+                <span className="hv-orb-abbr">닥브매</span>
+                <span className="hv-orb-sub">온라인 마케팅</span>
+              </div>
+
+              {/* 병원 노드 */}
+              <div className="hv-node hv-node-hospital">
+                <div className="hv-node-circle hv-node-circle-hosp">
+                  <FiActivity />
                 </div>
-              ))}
+                <span className="hv-node-name">병원</span>
+                <span className="hv-node-desc">브랜드 성장</span>
+              </div>
+
+              {/* 채널 태그 */}
+              <div className="hv-channel-row">
+                {channels.map((ch) => (
+                  <span key={ch} className="hv-channel-tag">{ch}</span>
+                ))}
+              </div>
+
             </div>
           </div>
 
