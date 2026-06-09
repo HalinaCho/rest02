@@ -93,17 +93,19 @@
 }
 
 .abbr-hl {
+  display: inline-block;
+  vertical-align: bottom;
   color: var(--cyan);
   text-shadow: 0 0 24px rgba(34, 211, 238, 0.45);
 }
 
 .expand-text {
   display: inline-block;
+  vertical-align: bottom;
   max-width: 0;
   overflow: hidden;
   opacity: 0;
   white-space: nowrap;
-  vertical-align: baseline;
   transition: max-width 0.55s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.45s ease;
 }
