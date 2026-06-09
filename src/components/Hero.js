@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 import './Hero.css';
@@ -5,6 +6,15 @@ import './Hero.css';
 const tags = ['네이버 블로그', '네이버 플레이스', '인스타그램', '네이버 카페'];
 
 function Hero() {
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setExpanded(true), 600);
+    return () => clearTimeout(t);
+  }, []);
+
+  const cx = expanded ? 'expand-text expanded' : 'expand-text';
+
   return (
     <section className="hero">
       <div className="hero-bg">
@@ -21,9 +31,7 @@ function Hero() {
 
         <h1 className="hero-title">
           <span className="hero-fullname">
-            <span className="abbr-hl">닥</span>터스{' '}
-            <span className="abbr-hl">브</span>랜드{' '}
-            <span className="abbr-hl">매</span>니저
+            <span className="abbr-hl">닥</span><span className={cx} style={{ transitionDelay: '0s' }}>터스&nbsp;</span><span className="abbr-hl">브</span><span className={cx} style={{ transitionDelay: '0.14s' }}>랜드&nbsp;</span><span className="abbr-hl">매</span><span className={cx} style={{ transitionDelay: '0.28s' }}>니저</span>
           </span>
           <span className="hero-tagline">
             병원의 온라인 브랜드,<br />
