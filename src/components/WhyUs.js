@@ -1,4 +1,5 @@
 import { FiTarget, FiTrendingUp, FiShield, FiClock } from 'react-icons/fi';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './WhyUs.css';
 
 const reasons = [
@@ -24,12 +25,30 @@ const reasons = [
   },
 ];
 
+const delayClass = ['delay-1', 'delay-2', 'delay-3', 'delay-4'];
+
+function WhyCard({ reason, index }) {
+  const ref = useScrollAnimation();
+  return (
+    <div ref={ref} className={`why-card reveal ${delayClass[index]}`}>
+      <div className="why-icon">{reason.icon}</div>
+      <div>
+        <h3>{reason.title}</h3>
+        <p>{reason.desc}</p>
+      </div>
+    </div>
+  );
+}
+
 function WhyUs() {
+  const textRef = useScrollAnimation();
+  const cardsRef = useScrollAnimation();
+
   return (
     <section className="why-us section" id="why">
       <div className="container">
         <div className="why-inner">
-          <div className="why-text">
+          <div ref={textRef} className="why-text reveal from-left">
             <p className="section-label">왜 메디마케팅인가</p>
             <h2 className="section-title">
               개원의 선생님이<br />
@@ -41,15 +60,9 @@ function WhyUs() {
               병원 브랜드 전문가로서 신뢰를 쌓아가고 있습니다.
             </p>
           </div>
-          <div className="why-cards">
-            {reasons.map((r) => (
-              <div key={r.title} className="why-card">
-                <div className="why-icon">{r.icon}</div>
-                <div>
-                  <h3>{r.title}</h3>
-                  <p>{r.desc}</p>
-                </div>
-              </div>
+          <div ref={cardsRef} className="why-cards">
+            {reasons.map((r, i) => (
+              <WhyCard key={r.title} reason={r} index={i} />
             ))}
           </div>
         </div>

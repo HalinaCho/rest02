@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './CtaBanner.css';
 
 function CtaBanner() {
+  const ref = useScrollAnimation();
+
   return (
     <section className="cta-banner">
-      <div className="container cta-inner">
+      <div ref={ref} className="container cta-inner reveal">
         <div className="cta-text">
           <h2>닥브매와 함께 병원 브랜드를 만들어보세요</h2>
           <p>안과·피부과·한의원·치과·성형외과 — 모든 개원병의원 환영합니다.</p>

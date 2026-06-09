@@ -1,3 +1,4 @@
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Process.css';
 
 const steps = [
@@ -7,11 +8,27 @@ const steps = [
   { num: '04', title: '운영 & 분석', desc: '월간 성과 리포트로 지속 최적화합니다.' },
 ];
 
+const delayClass = ['delay-1', 'delay-2', 'delay-3', 'delay-4'];
+
+function ProcessStep({ step, idx, total }) {
+  const ref = useScrollAnimation();
+  return (
+    <div ref={ref} className={`process-step reveal ${delayClass[idx]}`}>
+      <div className="step-number">{step.num}</div>
+      {idx < total - 1 && <div className="step-line" />}
+      <h3>{step.title}</h3>
+      <p>{step.desc}</p>
+    </div>
+  );
+}
+
 function Process() {
+  const headerRef = useScrollAnimation();
+
   return (
     <section className="process section" id="process">
       <div className="container">
-        <div className="section-header">
+        <div ref={headerRef} className="section-header reveal">
           <p className="section-label">진행 프로세스</p>
           <h2 className="section-title">
             이렇게 <span className="highlight">함께 시작</span>합니다
@@ -22,12 +39,7 @@ function Process() {
         </div>
         <div className="process-steps">
           {steps.map((step, idx) => (
-            <div key={step.num} className="process-step">
-              <div className="step-number">{step.num}</div>
-              {idx < steps.length - 1 && <div className="step-line" />}
-              <h3>{step.title}</h3>
-              <p>{step.desc}</p>
-            </div>
+            <ProcessStep key={step.num} step={step} idx={idx} total={steps.length} />
           ))}
         </div>
       </div>

@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { FiMail, FiSend } from 'react-icons/fi';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Contact.css';
 
 function Contact() {
   const [form, setForm] = useState({ name: '', hospital: '', phone: '', service: '', message: '' });
   const [sent, setSent] = useState(false);
+
+  const infoRef = useScrollAnimation();
+  const formRef = useScrollAnimation();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -23,7 +27,7 @@ function Contact() {
         </div>
       </div>
       <div className="container contact-content section">
-        <div className="contact-info">
+        <div ref={infoRef} className="contact-info reveal from-left">
           <h2>연락처</h2>
           <div className="contact-item">
             <FiMail />
@@ -37,7 +41,7 @@ function Contact() {
             <p>📅 운영시간: 평일 09:00 – 18:00</p>
           </div>
         </div>
-        <div className="contact-form-wrap">
+        <div ref={formRef} className="contact-form-wrap reveal from-right">
           {sent ? (
             <div className="form-success">
               <div className="success-icon">✓</div>

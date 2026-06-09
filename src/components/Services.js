@@ -1,4 +1,5 @@
 import { FiEdit3, FiMapPin, FiUsers, FiInstagram } from 'react-icons/fi';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Services.css';
 
 const services = [
@@ -32,11 +33,33 @@ const services = [
   },
 ];
 
+const delayClass = ['delay-1', 'delay-2', 'delay-3', 'delay-4'];
+
+function ServiceCard({ svc, index }) {
+  const ref = useScrollAnimation();
+  return (
+    <div ref={ref} className={`service-card reveal ${delayClass[index]}`}>
+      <div className="service-icon" style={{ background: `${svc.color}18`, color: svc.color }}>
+        {svc.icon}
+      </div>
+      <h3 className="service-name">{svc.title}</h3>
+      <p className="service-desc">{svc.desc}</p>
+      <ul className="service-items">
+        {svc.items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function Services() {
+  const headerRef = useScrollAnimation();
+
   return (
     <section className="services section" id="services">
       <div className="container">
-        <div className="section-header">
+        <div ref={headerRef} className="section-header reveal">
           <p className="section-label">서비스</p>
           <h2 className="section-title">
             병의원 전문 온라인 마케팅<br />
@@ -48,19 +71,8 @@ function Services() {
           </p>
         </div>
         <div className="services-grid">
-          {services.map((svc) => (
-            <div key={svc.title} className="service-card">
-              <div className="service-icon" style={{ background: `${svc.color}18`, color: svc.color }}>
-                {svc.icon}
-              </div>
-              <h3 className="service-name">{svc.title}</h3>
-              <p className="service-desc">{svc.desc}</p>
-              <ul className="service-items">
-                {svc.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
+          {services.map((svc, i) => (
+            <ServiceCard key={svc.title} svc={svc} index={i} />
           ))}
         </div>
       </div>

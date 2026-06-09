@@ -1,6 +1,30 @@
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './About.css';
 
+const values = [
+  { num: '01', title: '전문성', desc: '의료 분야 특성을 깊이 이해한 콘텐츠, 의료광고 법규를 철저히 준수하는 마케팅' },
+  { num: '02', title: '브랜딩', desc: '단순 홍보가 아닌 병원만의 정체성과 신뢰를 온라인에 쌓아가는 브랜드 전략' },
+  { num: '03', title: '투명성', desc: '채널별 유입·전환 데이터를 매월 리포트로 공유, 숫자로 증명하는 마케팅' },
+  { num: '04', title: '신뢰', desc: '단기 성과보다 장기 파트너십. 병원이 성장할수록 함께 성장하는 구조' },
+];
+
+const delayClass = ['delay-1', 'delay-2', 'delay-3', 'delay-4'];
+
+function ValueItem({ v, index }) {
+  const ref = useScrollAnimation();
+  return (
+    <div ref={ref} className={`value-item reveal ${delayClass[index]}`}>
+      <span className="value-num">{v.num}</span>
+      <h3>{v.title}</h3>
+      <p>{v.desc}</p>
+    </div>
+  );
+}
+
 function About() {
+  const storyRef = useScrollAnimation();
+  const ceoRef = useScrollAnimation();
+
   return (
     <section className="about-page">
       <div className="page-hero">
@@ -15,7 +39,7 @@ function About() {
       </div>
 
       <div className="container about-content section">
-        <div className="about-story">
+        <div ref={storyRef} className="about-story reveal from-left">
           <h2 className="section-title">우리의 이야기</h2>
           <p>
             <strong className="brand-highlight">닥터스 브랜드 매니저(닥브매)</strong>는 2026년 6월,
@@ -31,7 +55,7 @@ function About() {
             신규 환자의 유입부터 재방문까지 이어지는 디지털 마케팅 생태계를 만들어 드립니다.
           </p>
 
-          <div className="about-ceo">
+          <div ref={ceoRef} className="about-ceo reveal">
             <div className="ceo-placeholder">
               <span>프로필 사진</span>
             </div>
@@ -44,26 +68,9 @@ function About() {
         </div>
 
         <div className="about-values">
-          <div className="value-item">
-            <span className="value-num">01</span>
-            <h3>전문성</h3>
-            <p>의료 분야 특성을 깊이 이해한 콘텐츠, 의료광고 법규를 철저히 준수하는 마케팅</p>
-          </div>
-          <div className="value-item">
-            <span className="value-num">02</span>
-            <h3>브랜딩</h3>
-            <p>단순 홍보가 아닌 병원만의 정체성과 신뢰를 온라인에 쌓아가는 브랜드 전략</p>
-          </div>
-          <div className="value-item">
-            <span className="value-num">03</span>
-            <h3>투명성</h3>
-            <p>채널별 유입·전환 데이터를 매월 리포트로 공유, 숫자로 증명하는 마케팅</p>
-          </div>
-          <div className="value-item">
-            <span className="value-num">04</span>
-            <h3>신뢰</h3>
-            <p>단기 성과보다 장기 파트너십. 병원이 성장할수록 함께 성장하는 구조</p>
-          </div>
+          {values.map((v, i) => (
+            <ValueItem key={v.num} v={v} index={i} />
+          ))}
         </div>
       </div>
     </section>

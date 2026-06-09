@@ -1,5 +1,6 @@
 import { FiCheck, FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Services.css';
 
 const packages = [
@@ -72,7 +73,92 @@ const packages = [
   },
 ];
 
+const delayClass = ['delay-1', 'delay-2', 'delay-3', 'delay-4'];
+
+function PackageCard({ pkg, index }) {
+  const ref = useScrollAnimation();
+  return (
+    <div ref={ref} className={`package-card reveal ${delayClass[index]} ${pkg.highlight ? 'featured' : ''}`}>
+      {pkg.highlight && <div className="featured-badge">가장 인기</div>}
+
+      <div className="pkg-header">
+        <span className="pkg-tier">{pkg.tier}</span>
+        <h2 className="pkg-name">{pkg.name}</h2>
+        <p className="pkg-name-en">{pkg.nameEn}</p>
+        <p className="pkg-tagline">{pkg.tagline}</p>
+      </div>
+
+      <div className="pkg-price">
+        <span className="price-amount">{pkg.price}</span>
+        <span className="price-note">{pkg.priceNote}</span>
+      </div>
+
+      <div className="pkg-channels">
+        <p className="pkg-section-label">포함 채널</p>
+        <ul>
+          {pkg.channels.map((ch) => (
+            <li key={ch.name}>
+              <FiCheck className="check-icon" />
+              <div>
+                <strong>{ch.name}</strong>
+                <span>{ch.desc}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="pkg-features">
+        <p className="pkg-section-label">공통 제공</p>
+        <ul>
+          {pkg.features.map((f) => (
+            <li key={f}><FiCheck className="check-icon" />{f}</li>
+          ))}
+        </ul>
+      </div>
+
+      {pkg.notIncluded.length > 0 && (
+        <div className="pkg-excluded">
+          {pkg.notIncluded.map((item) => (
+            <span key={item} className="excluded-item">— {item}</span>
+          ))}
+        </div>
+      )}
+
+      <Link
+        to="/contact"
+        className={`pkg-cta ${pkg.highlight ? 'pkg-cta-featured' : ''}`}
+      >
+        이 플랜으로 상담하기 <FiArrowRight />
+      </Link>
+    </div>
+  );
+}
+
+function ChannelCard({ ch, index }) {
+  const ref = useScrollAnimation();
+  return (
+    <div ref={ref} className={`channel-card reveal ${delayClass[index]}`}>
+      <h3>{ch.name}</h3>
+      <ul>
+        {ch.items.map((item) => (
+          <li key={item}><FiCheck />{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const channelDetails = [
+  { name: '네이버 블로그', items: ['진료과 특화 키워드 분석', 'SEO 최적화 포스팅 작성', '의료정보·후기 콘텐츠 기획', '검색 순위 모니터링'] },
+  { name: '네이버 플레이스', items: ['프로필 사진·정보 최적화', '진료시간·편의시설 관리', '방문자 리뷰 대응 전략', '플레이스 광고 연계'] },
+  { name: '네이버 카페', items: ['지역 맘카페 타겟 게시', '건강정보 콘텐츠 배포', '지역 커뮤니티 신뢰 구축', '바이럴 확산 전략'] },
+  { name: '인스타그램', items: ['피드·릴스 콘텐츠 제작', '해시태그 & 위치 태그 전략', '팔로워→환자 전환 캠페인', '메타 광고 집행 & 분석'] },
+];
+
 function Services() {
+  const channelHeaderRef = useScrollAnimation();
+
   return (
     <div className="services-page">
       <div className="page-hero">
@@ -86,64 +172,10 @@ function Services() {
       <section className="packages-section section">
         <div className="container">
           <div className="packages-grid">
-            {packages.map((pkg) => (
-              <div key={pkg.tier} className={`package-card ${pkg.highlight ? 'featured' : ''}`}>
-                {pkg.highlight && <div className="featured-badge">가장 인기</div>}
-
-                <div className="pkg-header">
-                  <span className="pkg-tier">{pkg.tier}</span>
-                  <h2 className="pkg-name">{pkg.name}</h2>
-                  <p className="pkg-name-en">{pkg.nameEn}</p>
-                  <p className="pkg-tagline">{pkg.tagline}</p>
-                </div>
-
-                <div className="pkg-price">
-                  <span className="price-amount">{pkg.price}</span>
-                  <span className="price-note">{pkg.priceNote}</span>
-                </div>
-
-                <div className="pkg-channels">
-                  <p className="pkg-section-label">포함 채널</p>
-                  <ul>
-                    {pkg.channels.map((ch) => (
-                      <li key={ch.name}>
-                        <FiCheck className="check-icon" />
-                        <div>
-                          <strong>{ch.name}</strong>
-                          <span>{ch.desc}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="pkg-features">
-                  <p className="pkg-section-label">공통 제공</p>
-                  <ul>
-                    {pkg.features.map((f) => (
-                      <li key={f}><FiCheck className="check-icon" />{f}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                {pkg.notIncluded.length > 0 && (
-                  <div className="pkg-excluded">
-                    {pkg.notIncluded.map((item) => (
-                      <span key={item} className="excluded-item">— {item}</span>
-                    ))}
-                  </div>
-                )}
-
-                <Link
-                  to="/contact"
-                  className={`pkg-cta ${pkg.highlight ? 'pkg-cta-featured' : ''}`}
-                >
-                  이 플랜으로 상담하기 <FiArrowRight />
-                </Link>
-              </div>
+            {packages.map((pkg, i) => (
+              <PackageCard key={pkg.tier} pkg={pkg} index={i} />
             ))}
           </div>
-
           <p className="packages-note">
             * 모든 플랜은 최소 3개월 계약입니다. 병원 규모·진료과에 따라 커스텀 구성도 가능합니다.
           </p>
@@ -152,26 +184,14 @@ function Services() {
 
       <section className="channels-detail section" style={{ background: 'var(--light-gray)' }}>
         <div className="container">
-          <div className="section-header">
+          <div ref={channelHeaderRef} className="section-header reveal">
             <p className="section-label">채널별 상세</p>
             <h2 className="section-title">각 채널에서 <span className="highlight">무엇을 해드리나요</span></h2>
             <p className="section-subtitle">모든 콘텐츠는 의료광고 심의 기준을 준수하여 제작됩니다.</p>
           </div>
           <div className="channels-grid">
-            {[
-              { name: '네이버 블로그', items: ['진료과 특화 키워드 분석', 'SEO 최적화 포스팅 작성', '의료정보·후기 콘텐츠 기획', '검색 순위 모니터링'] },
-              { name: '네이버 플레이스', items: ['프로필 사진·정보 최적화', '진료시간·편의시설 관리', '방문자 리뷰 대응 전략', '플레이스 광고 연계'] },
-              { name: '네이버 카페', items: ['지역 맘카페 타겟 게시', '건강정보 콘텐츠 배포', '지역 커뮤니티 신뢰 구축', '바이럴 확산 전략'] },
-              { name: '인스타그램', items: ['피드·릴스 콘텐츠 제작', '해시태그 & 위치 태그 전략', '팔로워→환자 전환 캠페인', '메타 광고 집행 & 분석'] },
-            ].map((ch) => (
-              <div key={ch.name} className="channel-card">
-                <h3>{ch.name}</h3>
-                <ul>
-                  {ch.items.map((item) => (
-                    <li key={item}><FiCheck />{item}</li>
-                  ))}
-                </ul>
-              </div>
+            {channelDetails.map((ch, i) => (
+              <ChannelCard key={ch.name} ch={ch} index={i} />
             ))}
           </div>
         </div>
